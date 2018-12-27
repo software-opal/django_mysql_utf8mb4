@@ -22,15 +22,17 @@ W002_TABLE_COLLATE_MESSAGE = (
 W002_TABLE_COLLATE_HINT = "USE %s; ALTER TABLE %s COLLATE %s;"
 
 
-def get_utf8mb_collations(connection, cursor=None):
+def get_utf8mb_collations(connection):
     with connection.cursor() as cursor:
-        c.execute("SHOW COLLATION WHERE Charset='utf8mb4';")
-        return frozenset([row[0] for row in c.fetchall()])
+        cursor.execute("SHOW COLLATION WHERE Charset='utf8mb4';")
+        return frozenset([row[0] for row in cursor.fetchall()])
 
 
 def get_preferred_collations(connection):
     valid_collations = get_utf8mb_collations(connection)
-    return [c for c in PREFERED_COLLATIONS if c in valid_collations]
+    return [
+        collation for collation in PREFERED_COLLATIONS if collation in valid_collations
+    ]
 
 
 @register(Tags.database)

@@ -22,6 +22,6 @@ def forwards_table_colation_migration(apps, schema_editor):
 class Migration(migrations.Migration):
 
     operations = [
-        migrations.RunPython(db_colation_migration, atomic=False),
+        migrations.RunPython(forwards_db_colation_migration, atomic=False),
         migrations.RunPython(forwards_table_colation_migration, atomic=False),
     ]

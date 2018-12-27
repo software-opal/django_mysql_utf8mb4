@@ -7,7 +7,7 @@ def db_colation_migration(connection, cursor=None):
         return
     collation = get_preferred_collations(connection)[0]
     db_name = connection.get_connection_params()["db"]
-    sql = "ALTER DATABASE %s CHARACTER SET utfmb4 COLLATE %s;" % (db_name, collation)
+    sql = "ALTER DATABASE %s CHARACTER SET utf8mb4 COLLATE %s;" % (db_name, collation)
     if cursor:
         cursor.execute(sql)
     else:
