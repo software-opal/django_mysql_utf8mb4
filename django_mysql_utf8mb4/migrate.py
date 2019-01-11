@@ -1,5 +1,5 @@
 from django_mysql_utf8mb4.checks import get_preferred_collations
-from django.db import connections
+from django.db import connections, utils
 
 
 def db_colation_migration(connection, cursor=None):
@@ -29,7 +29,7 @@ def table_colation_migration(table_name, connection, cursor=None):
         else:
             with connection.cursor() as cursor:
                 cursor.execute(sql)
-    except django.db.utils.ProgrammingError as e:
+    except utils.ProgrammingError as e:
         if e.args[0] == 1146:
             # Table doesn't exist. Ignore it.
             pass
