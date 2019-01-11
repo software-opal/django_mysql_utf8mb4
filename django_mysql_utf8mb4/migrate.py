@@ -23,11 +23,18 @@ def table_colation_migration(table_name, connection, cursor=None):
         table_name,
         collation,
     )
-    if cursor:
-        cursor.execute(sql)
-    else:
-        with connection.cursor() as cursor:
+    try:
+        if cursor:
             cursor.execute(sql)
+        else:
+            with connection.cursor() as cursor:
+                cursor.execute(sql)
+    except django.db.utils.ProgrammingError as e:
+        if e.args[0] == 1146:
+            # Table doesn't exist. Ignore it.
+            pass
+        else:
+            raise
 
 
 def django_tables_colation_migration(connection, cursor=None):
