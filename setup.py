@@ -9,7 +9,7 @@ if not packages:
 
 setup(
     name="django_mysql_utf8mb4",
-    version="0.1.5",
+    version="0.1.6",
     description="A migration, command and checks to ensure Django and MySQL are using the best-avaliable collation",
     url="https://github.com/software-opal/django_mysql_utf8mb4",
     author="Opal Symes",
